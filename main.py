@@ -16,13 +16,14 @@ def send_btc(bal):
                             currency='BTC')
     print(tx)
 
-accounts = client.get_accounts()
-for wallet in accounts.data:
-    if str(wallet['name']) == "BTC Wallet":
-        usd_bal = float(str(wallet['native_balance']).replace('USD', '').strip())
-        bal = float(str(wallet['balance']).replace('BTC', '').strip())
+if __name__ == "__main__":
+    accounts = client.get_accounts()
+    for wallet in accounts.data:
+        if str(wallet['name']) == "BTC Wallet":
+            usd_bal = float(str(wallet['native_balance']).replace('USD', '').strip())
+            bal = float(str(wallet['balance']).replace('BTC', '').strip())
 
-        if usd_bal > withdraw_threshold:
-            send_btc(bal)
-        else:
-            print(f"Skipping. Balance is only ${usd_bal}")
+            if usd_bal > withdraw_threshold:
+                send_btc(bal)
+            else:
+                print(f"Skipping since ${usd_bal} < ${withdrawal_threshold}")
