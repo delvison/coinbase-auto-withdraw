@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: coinbase-auto-transfer
 spec:
-  schedule: "*/5 * * * *"
+  schedule: "@hourly"
   jobTemplate:
     spec:
       template:
