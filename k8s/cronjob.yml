@@ -12,7 +12,7 @@ spec:
           restartPolicy: "OnFailure"
           containers:
             - name: coinbase-auto-transfer
-              image: coinbase-auto-transfer
+              image: coinbase-auto-transfer:0.0.1
               imagePullPolicy: IfNotPresent
               env:
                 - name: COINBASE_API_KEY
