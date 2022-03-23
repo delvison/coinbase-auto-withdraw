@@ -20,8 +20,13 @@ spec:
                     secretKeyRef:
                       name: coinbase
                       key: COINBASE_API_KEY
-                - name: COINBASE_SECRET_KEY
+                - name: COINBASE_API_SECRET
                   valueFrom:
                     secretKeyRef:
                       name: coinbase
-                      key: COINBASE_SECRET_KEY
+                      key: COINBASE_API_SECRET
+                - name: BITCOIN_WALLET
+                  valueFrom:
+                    secretKeyRef:
+                      name: coinbase
+                      key: BITCOIN_WALLET
