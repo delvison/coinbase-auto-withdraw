@@ -14,3 +14,14 @@ spec:
             - name: coinbase-auto-transfer
               image: coinbase-auto-transfer
               imagePullPolicy: IfNotPresent
+              env:
+                - name: COINBASE_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: coinbase
+                      key: COINBASE_API_KEY
+                - name: COINBASE_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: coinbase
+                      key: COINBASE_SECRET_KEY
