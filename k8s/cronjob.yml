@@ -2,18 +2,24 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: coinbase-auto-transfer
+  name: coinbase-auto-withdraw
 spec:
+  successfulJobsHistoryLimit: 3 
+  failedJobsHistoryLimit: 1 
+  suspend: false 
+  concurrencyPolicy: Forbid 
   schedule: "@hourly"
   jobTemplate:
     spec:
+      parallelism: 1 
+      completions: 1 
+      backoffLimit: 3 
       template:
         spec:
           restartPolicy: "OnFailure"
           containers:
-            - name: coinbase-auto-transfer
-              image: coinbase-auto-transfer:0.0.1
-              imagePullPolicy: IfNotPresent
+            - name: coinbase-auto-withdraw
+              image: localhost:32000/coinbase-auto-withdraw:0.0.1
               env:
                 - name: COINBASE_API_KEY
                   valueFrom:
@@ -25,8 +31,13 @@ spec:
                     secretKeyRef:
                       name: coinbase
                       key: COINBASE_API_SECRET
-                - name: BITCOIN_WALLET
+                # - name: BITCOIN_WALLET
+                #   valueFrom:
+                #     secretKeyRef:
+                #       name: coinbase
+                #       key: BITCOIN_WALLET
+                - name: XPUB_ADDRESS
                   valueFrom:
                     secretKeyRef:
                       name: coinbase
-                      key: BITCOIN_WALLET
+                      key: XPUB_ADDRESS
